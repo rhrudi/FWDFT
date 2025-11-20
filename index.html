@@ -8,20 +8,84 @@
 </head>
 <body>
 
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">🏋️ Fitness Tracker</div>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#nutrition">Nutrition & Diet</a></li>
+            <li><a href="#exercises">Exercises</a></li>
+            <li><a href="#log">Log</a></li>
+            <li><a href="#profile">My Profile</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Container -->
     <div class="container">
-        <h1>🏋️ My Fitness Tracker</h1>
 
-        <!-- Add Workout Form -->
-        <div class="form">
-            <input type="text" id="workoutName" placeholder="Workout name (e.g., Push-ups)">
-            <input type="number" id="workoutReps" placeholder="Reps (e.g., 20)">
-            <button onclick="addWorkout()">Add Workout</button>
-        </div>
+        <!-- Home Section -->
+        <section id="home" class="section active-section">
+            <h1>Welcome to My Fitness Tracker</h1>
+            <p>Track your workouts, monitor your diet, and achieve your fitness goals!</p>
 
-        <h2>Today's Workouts</h2>
-        <ul id="workoutList"></ul>
+            <!-- Add Workout Form -->
+            <div class="form">
+                <input type="text" id="workoutName" placeholder="Workout name (e.g., Push-ups)">
+                <input type="number" id="workoutReps" placeholder="Reps (e.g., 20)">
+                <button onclick="addWorkout()">Add Workout</button>
+            </div>
+
+            <h2>Today's Workouts</h2>
+            <ul id="workoutList"></ul>
+        </section>
+
+        <!-- Nutrition Section -->
+        <section id="nutrition" class="section">
+            <h1>Nutrition & Diet</h1>
+            <p>Track your meals, calories, and stay on top of your diet plan.</p>
+        </section>
+
+        <!-- Exercises Section -->
+        <section id="exercises" class="section">
+            <h1>Exercises</h1>
+            <p>Explore workouts, exercises, and routines to build strength and endurance.</p>
+        </section>
+
+        <!-- Log Section -->
+        <section id="log" class="section">
+            <h1>Workout Log</h1>
+            <p>View your past workouts and track your progress over time.</p>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="section">
+            <h1>My Profile</h1>
+            <p>Manage your fitness profile, goals, and personal stats.</p>
+        </section>
+
     </div>
 
 <script src="index.js"></script>
+<script>
+    // Simple tab switching
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('.section');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // Remove active class from all sections and nav links
+            sections.forEach(sec => sec.classList.remove('active-section'));
+            navLinks.forEach(l => l.classList.remove('active'));
+
+            // Add active class to clicked tab and corresponding section
+            const target = document.querySelector(link.getAttribute('href'));
+            target.classList.add('active-section');
+            link.classList.add('active');
+        });
+    });
+</script>
 </body>
 </html>
+

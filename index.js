@@ -1,46 +1,40 @@
-// Load workouts from localStorage
-document.addEventListener("DOMContentLoaded", loadWorkouts);
+// Tab Switching
+const navLinks = document.querySelectorAll('.nav-links a');
+const sections = document.querySelectorAll('.section');
+
+navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        // Remove active classes
+        sections.forEach(sec => sec.classList.remove('active-section'));
+        navLinks.forEach(l => l.classList.remove('active'));
+
+        // Add active class to clicked tab & corresponding section
+        const target = document.querySelector(link.getAttribute('href'));
+        target.classList.add('active-section');
+        link.classList.add('active');
+    });
+});
+
+// Workout Tracker
+const workoutList = document.getElementById('workoutList');
 
 function addWorkout() {
-    const name = document.getElementById("workoutName").value;
-    const reps = document.getElementById("workoutReps").value;
+    const name = document.getElementById('workoutName').value.trim();
+    const reps = document.getElementById('workoutReps').value.trim();
 
-    if (name.trim() === "" || reps.trim() === "") {
-        alert("Please fill out all fields!");
+    if (name === "" || reps === "") {
+        alert("Please enter workout name and reps.");
         return;
     }
 
-    const workout = { name, reps };
+    const li = document.createElement('li');
+    li.textContent = `${name} - ${reps} reps`;
+    workoutList.appendChild(li);
 
-    let workouts = JSON.parse(localStorage.getItem("workouts")) || [];
-    workouts.push(workout);
-    localStorage.setItem("workouts", JSON.stringify(workouts));
-
-    document.getElementById("workoutName").value = "";
-    document.getElementById("workoutReps").value = "";
-
-    loadWorkouts();
+    // Clear inputs
+    document.getElementById('workoutName').value = '';
+    document.getElementById('workoutReps').value = '';
 }
 
-function loadWorkouts() {
-    const list = document.getElementById("workoutList");
-    list.innerHTML = "";
-
-    let workouts = JSON.parse(localStorage.getItem("workouts")) || [];
-
-    workouts.forEach((workout, index) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-            ${workout.name} - ${workout.reps} reps
-            <button class="delete-btn" onclick="deleteWorkout(${index})">X</button>
-        `;
-        list.appendChild(li);
-    });
-}
-
-function deleteWorkout(index) {
-    let workouts = JSON.parse(localStorage.getItem("workouts")) || [];
-    workouts.splice(index, 1);
-    localStorage.setItem("workouts", JSON.stringify(workouts));
-    loadWorkouts();
-}
