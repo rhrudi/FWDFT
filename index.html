@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracker</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>🏋️ Simple Fitness Tracker</h1>
+
+        <!-- Add Workout Form -->
+        <div class="form">
+            <input type="text" id="workoutName" placeholder="Workout name (e.g., Push-ups)">
+            <input type="number" id="workoutReps" placeholder="Reps (e.g., 20)">
+            <button onclick="addWorkout()">Add Workout</button>
+        </div>
+
+        <h2>Today's Workouts</h2>
+        <ul id="workoutList"></ul>
+    </div>
+
+<script src="index.js"></script>
+</body>
+</html>
