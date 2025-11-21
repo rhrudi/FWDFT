@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FiTrack – Workouts</title>
 
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/workouts.css">
 </head>
 <body>
 
+    <!-- Navbar -->
     <nav class="navbar">
         <div class="logo">FiTrack</div>
         <ul class="nav-links">
@@ -20,11 +22,32 @@
         </ul>
     </nav>
 
-    <section class="section">
+    <!-- Workouts Section -->
+    <section class="workouts-section">
         <h1>Workouts</h1>
         <p>Track your daily workouts and stay consistent.</p>
+
+        <!-- Add Workout Form -->
+        <div class="add-workout-form">
+            <select id="exerciseType" required>
+                <option value="" disabled selected>Select Exercise</option>
+                <option value="Push-ups">Push-ups</option>
+                <option value="Squats">Squats</option>
+                <option value="Plank">Plank</option>
+                <option value="Lunges">Lunges</option>
+                <option value="Burpees">Burpees</option>
+            </select>
+
+            <input type="text" id="workoutReps" placeholder="Sets × Reps or Duration" required>
+            <button id="addWorkoutBtn">Add Workout</button>
+        </div>
+
+        <!-- Container for workout cards -->
+        <div class="workout-cards"></div>
     </section>
 
+    <!-- JS -->
+    <script src="js/workouts.js"></script>
 </body>
 </html>
 
