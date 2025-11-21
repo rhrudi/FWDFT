@@ -26,14 +26,60 @@
 
     <div class="suggested-workouts">
         <h2>Suggested Workouts</h2>
-        <ul id="suggestedList">
-          <li data-type="Push-ups" data-reps="10 reps">10 × Push-ups</li>
-          <li data-type="Squats" data-reps="20 reps">20 × Squats</li>
-          <li data-type="Plank" data-reps="1 minute">1 min Plank</li>
-          <li data-type="Lunges" data-reps="15 reps each leg">15 × Lunges</li>
-          <li data-type="Burpees" data-reps="10 reps">10 Burpees</li>
-        </ul>
-      </div>                  
+
+        <div class="suggested-header">
+    
+            <div class="suggested-controls">
+                <select id="difficulty">
+                    <option value="easy">Easy</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+    
+                <select id="workoutType">
+                    <option value="strength" selected>Strength</option>
+                    <option value="cardio">Cardio</option>
+                    <option value="core">Core</option>
+                </select>
+    
+                <button id="regenBtn" class="suggest-btn">Generate</button>
+            </div>
+        </div>
+    
+        <div class="suggested-list" id="suggestedListContainer">
+            <!-- JS will generate items here -->
+        </div>
+        
+        <div class="suggested-list">
+
+            <div class="suggested-item" data-type="Push-ups">
+                <span></span>
+                <button class="suggest-btn">Add</button>
+            </div>
+        
+            <div class="suggested-item" data-type="Squats">
+                <span></span>
+                <button class="suggest-btn">Add</button>
+            </div>
+        
+            <div class="suggested-item" data-type="Plank">
+                <span></span>
+                <button class="suggest-btn">Add</button>
+            </div>
+        
+            <div class="suggested-item" data-type="Lunges">
+                <span></span>
+                <button class="suggest-btn">Add</button>
+            </div>
+        
+            <div class="suggested-item" data-type="Burpees">
+                <span></span>
+                <button class="suggest-btn">Add</button>
+            </div>
+        
+        </div>
+                
+    </div>                   
 
     <!-- Add Workout Form -->
     <div class="add-workout-form">
