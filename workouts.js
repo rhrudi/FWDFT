@@ -29,6 +29,20 @@ addBtn.addEventListener('click', (e) => {
     container.appendChild(card);
 
     // Clear inputs
-    document.getElementById('exerciseType').value = '';
+    document.getElementById('exerciseType').selectedIndex = 0;
     document.getElementById('workoutReps').value = '';
+
+    // Suggested workouts click-to-fill
+const suggestions = document.querySelectorAll('#suggestedList li');
+
+suggestions.forEach(item => {
+    item.addEventListener('click', () => {
+        const type = item.getAttribute('data-type');
+        const reps = item.getAttribute('data-reps');
+
+        document.getElementById('exerciseType').value = type;
+        document.getElementById('workoutReps').value = reps;
+    });
+});
+
 });
