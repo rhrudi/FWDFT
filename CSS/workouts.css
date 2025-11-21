@@ -1,38 +1,28 @@
-/* Workouts Section */
 .workouts-section {
-    padding: 80px 20px;
-    text-align: center;
+    padding: 80px 40px;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-.workouts-section h1 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-}
-
-.workouts-section p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-}
-
-/* Add Workout Form */
 .add-workout-form {
     display: flex;
-    flex-wrap: wrap;
     gap: 10px;
-    justify-content: center;
-    margin-bottom: 30px;
+    margin: 20px 0;
+    flex-wrap: wrap;
 }
 
 .add-workout-form select,
-.add-workout-form input,
-.add-workout-form button {
-    padding: 12px 15px;
-    font-size: 1rem;
-    border-radius: 10px;
+.add-workout-form input {
+    padding: 10px;
+    border-radius: 8px;
     border: 1px solid #ccc;
+    flex: 1;
+    min-width: 180px;
 }
 
 .add-workout-form button {
+    padding: 10px 20px;
+    border-radius: 25px;
     background: #6a5acd;
     color: white;
     border: none;
@@ -44,35 +34,26 @@
     background: #573bff;
 }
 
-/* Workout Cards */
 .workout-cards {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
 }
 
 .workout-card {
-    background: white;
+    background: #fff;
     padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    width: 200px;
-    text-align: center;
-    transition: 0.3s;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .workout-card h2 {
-    font-size: 1.5rem;
-    margin: 10px 0;
+    margin-bottom: 10px;
 }
 
-.workout-card p {
-    font-size: 1.1rem;
+.workout-card .timestamp {
+    font-size: 0.9rem;
     color: #555;
 }
 
-.workout-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-}
