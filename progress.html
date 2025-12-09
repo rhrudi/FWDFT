@@ -20,11 +20,20 @@
         </ul>
     </nav>
 
-    <section class="profile-section">
-        <h1>Your Progress</h1>
-        <p>Visualize how far you’ve come.</p>
-    </section>
+    <section class="progress-section">
+    <h1>Your Progress</h1>
 
+    <p>Total Workouts: <span id="totalWorkouts">0</span></p>
+    <p>Completed Workouts: <span id="completedWorkouts">0</span></p>
+
+    <div class="progress-container">
+        <div id="progressBar" class="progress-bar"></div>
+    </div>
+
+    <p>Completion: <span id="percentage">0%</span></p>
+</section>
+
+<script src="js/progress.js"></script>
 </body>
 </html>
 

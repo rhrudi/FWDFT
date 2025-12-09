@@ -277,3 +277,81 @@ addBtn.addEventListener('click', (e) => {
     document.getElementById('exerciseType').selectedIndex = 0;
     document.getElementById('workoutReps').value = '';
 });
+
+// Load saved workouts
+let workouts = JSON.parse(localStorage.getItem("workouts")) || [];
+
+// Function to save to localStorage
+function saveWorkouts() {
+    localStorage.setItem("workouts", JSON.stringify(workouts));
+}
+
+// Render workout cards
+function renderWorkouts() {
+    const container = document.querySelector(".workout-cards");
+    container.innerHTML = "";
+
+    workouts.forEach((w, index) => {
+        const card = document.createElement("div");
+        card.classList.add("workout-card");
+        if (w.completed) card.classList.add("completed");
+
+        card.innerHTML = `
+            <h3>${w.type}</h3>
+            <p>${w.reps}</p>
+            <button class="done-btn" data-index="${index}">
+                ${w.completed ? "Completed ✔" : "Mark as Done"}
+            </button>
+        `;
+
+        container.appendChild(card);
+    });
+
+    // Add event listeners for "Done" button
+    document.querySelectorAll(".done-btn").forEach(btn => {
+        btn.addEventListener("click", function () {
+            const i = this.getAttribute("data-index");
+            workouts[i].completed = !workouts[i].completed;
+            saveWorkouts();
+            renderWorkouts();
+        });
+    });
+}
+
+// Add workout manually
+document.getElementById("addWorkoutBtn").addEventListener("click", () => {
+    const type = document.getElementById("exerciseType").value;
+    const reps = document.getElementById("workoutReps").value;
+
+    if (!type || !reps) return alert("Please fill all fields!");
+
+    workouts.push({
+        type,
+        reps,
+        completed: false
+    });
+
+    saveWorkouts();
+    renderWorkouts();
+});
+
+// Initial load
+renderWorkouts();
+
+// Handle ADD buttons from suggested workouts
+document.querySelectorAll(".suggested-item .suggest-btn").forEach(btn => {
+    btn.addEventListener("click", function () {
+        const card = this.parentElement;
+        const type = card.getAttribute("data-type");
+        const reps = card.querySelector("span")?.innerText || "No reps specified";
+
+        workouts.push({
+            type: type,
+            reps: reps,
+            completed: false
+        });
+
+        saveWorkouts();
+        renderWorkouts();
+    });
+});
