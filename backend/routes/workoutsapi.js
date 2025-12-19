@@ -1,17 +1,26 @@
-const express = require('express');
-const Workout = require('../models/workoutsdata');
+const express = require("express");
+const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-router.post('/add', async (req, res) => {
-  const workout = new Workout(req.body);
-  await workout.save();
-  res.json({ message: 'Workout added' });
+// 🔐 Protected route
+router.get("/", authMiddleware, async (req, res) => {
+  const workouts = await Workout.find({ userId: req.userId });
+  res.json(workouts);
 });
 
-router.get('/:userId', async (req, res) => {
-  const workouts = await Workout.find({ userId: req.params.userId });
-  res.json(workouts);
+// 🔐 Add new workout
+router.post("/", authMiddleware, async (req, res) => {
+  const { type, reps } = req.body;
+
+  const workout = new Workout({
+    userId: req.userId,
+    type,
+    reps
+  });
+
+  await workout.save();
+  res.json({ message: "Workout saved" });
 });
 
 module.exports = router;

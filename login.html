@@ -24,15 +24,22 @@
         <div class="login-box">
             <h1>Login</h1>
 
-            <form class="form">
-                <input type="text" placeholder="Username">
-                <input type="password" placeholder="Password">
-                <button type="submit">Login</button>
-            </form>
+            <form id="loginForm">
+  <input type="text" id="email" placeholder="Email" required />
+  <input type="password" id="password" placeholder="Password" required />
+  <button type="submit">Login</button>
+</form>
+
 
             <p>Don't have an account? <a href="register.html">Sign up</a></p>
         </div>
     </section>
+
+    <script src="js/login.js"></script>
+    <li><a href="#" id="logoutBtn">Logout</a></li>
+
+
+
 </body>
 </html>
 

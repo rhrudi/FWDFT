@@ -127,3 +127,12 @@
     font-size: 1rem;
     color: #004b7c;
 }
+
+/* Dark mode toggle button */
+.theme-toggle {
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    margin-left: 15px;
+}

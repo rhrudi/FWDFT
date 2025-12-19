@@ -133,3 +133,20 @@ if (completed.length > 0) {
     document.getElementById("motivationText").textContent =
         tips[Math.floor(Math.random() * tips.length)];
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const themeToggleBtn = document.getElementById("themeToggle");
+    if (!themeToggleBtn) return;
+
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
+        themeToggleBtn.textContent = "☀️";
+    }
+
+    themeToggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+        const isDark = document.body.classList.contains("dark");
+        themeToggleBtn.textContent = isDark ? "☀️" : "🌙";
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+});

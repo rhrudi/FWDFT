@@ -1,3 +1,11 @@
+const token = localStorage.getItem("token");
+
+if (!token) {
+  alert("Please login first");
+  window.location.href = "login.html";
+}
+
+
 console.log("WORKOUTS.JS LOADED");
 
 const container = document.querySelector(".workout-cards");
@@ -169,3 +177,10 @@ document.getElementById("workoutType").addEventListener("change", generateSugges
 
 generateSuggestions();
 renderWorkouts();
+
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  localStorage.removeItem("token");
+  window.location.href = "login.html";
+});
+
