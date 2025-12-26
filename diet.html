@@ -60,6 +60,24 @@
     </div>
   </div>
 
+  <!-- Diet Recommendation -->
+<div class="diet-recommendation">
+  <h3>Diet Recommendation</h3>
+
+  <div class="diet-controls">
+    <select id="dietGoal">
+      <option value="">Select Goal</option>
+      <option value="loss">Weight Loss</option>
+      <option value="gain">Weight Gain</option>
+    </select>
+
+    <button onclick="suggestDiet()">Get Suggestion</button>
+  </div>
+
+  <div id="dietSuggestionBox"></div>
+</div>
+
+
   <!-- Meals -->
   <h2 class="meal-title">Today's Meals</h2>
   <div id="mealList" class="meal-grid"></div>

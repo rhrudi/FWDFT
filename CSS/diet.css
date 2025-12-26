@@ -161,3 +161,100 @@
 .meal-card button:hover {
   text-decoration: underline;
 }
+
+/* =====================================================
+   ADDED: PREMIUM DIET RECOMMENDATION (NO EXISTING CHANGES)
+===================================================== */
+
+.diet-recommendation {
+  margin-top: 45px;
+  padding: 28px 30px;
+  border-radius: 22px;
+
+  /* Glassmorphism */
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255,255,255,0.35);
+  box-shadow:
+    0 12px 35px rgba(0,0,0,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.45);
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.diet-recommendation:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 45px rgba(0,0,0,0.28),
+    inset 0 1px 0 rgba(255,255,255,0.45);
+}
+
+.diet-recommendation h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+/* Controls */
+.diet-controls {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.diet-controls select {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255,255,255,0.85);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.12);
+  font-size: 14px;
+}
+
+.diet-controls button {
+  padding: 10px 24px;
+  border-radius: 30px;
+  border: none;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Suggestion content */
+#dietSuggestionBox {
+  margin-top: 15px;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+#dietSuggestionBox h4 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #4f46e5;
+}
+
+#dietSuggestionBox ul {
+  padding-left: 18px;
+}
+
+#dietSuggestionBox li {
+  margin-bottom: 6px;
+}
+
+/* =========================
+   DARK MODE SUPPORT (SAFE)
+========================= */
+
+body.dark .diet-recommendation {
+  background: rgba(2, 6, 23, 0.6);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #e5e7eb;
+}
+
+body.dark #dietSuggestionBox h4 {
+  color: #a5b4fc;
+}

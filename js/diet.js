@@ -77,3 +77,37 @@ function clearInputs() {
 
 // Initial load
 loadMeals();
+
+function suggestDiet() {
+  const goal = document.getElementById("dietGoal").value;
+  const box = document.getElementById("dietSuggestionBox");
+
+  if (!goal) {
+    box.innerHTML = "<p>Please select a goal.</p>";
+    return;
+  }
+
+  if (goal === "loss") {
+    box.innerHTML = `
+      <h4>Weight Loss Plan</h4>
+      <ul>
+        <li>Calories: 1500–1800 kcal/day</li>
+        <li>Protein: High (lean chicken, eggs, tofu)</li>
+        <li>Carbs: Low (oats, brown rice)</li>
+        <li>Fats: Healthy (nuts, olive oil)</li>
+        <li>Foods: Salads, fruits, vegetables</li>
+      </ul>
+    `;
+  } else if (goal === "gain") {
+    box.innerHTML = `
+      <h4>Weight Gain Plan</h4>
+      <ul>
+        <li>Calories: 2500–3000 kcal/day</li>
+        <li>Protein: Very High (chicken, fish, paneer)</li>
+        <li>Carbs: High (rice, potatoes, pasta)</li>
+        <li>Fats: Healthy (peanut butter, nuts)</li>
+        <li>Foods: Milk, bananas, dry fruits</li>
+      </ul>
+    `;
+  }
+}
