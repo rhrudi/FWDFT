@@ -1,11 +1,3 @@
-const token = localStorage.getItem("token");
-
-if (!token) {
-  alert("Please login first");
-  window.location.href = "login.html";
-}
-
-
 console.log("WORKOUTS.JS LOADED");
 
 const container = document.querySelector(".workout-cards");
@@ -129,14 +121,14 @@ function attachSuggestedButtons() {
 }
 attachSuggestedButtons();
 
-/* ---------- AI-LIKE GENERATOR (KEPT) ---------- */
+/* ---------- AI-LIKE GENERATOR ---------- */
 const WORKOUT_DB = {
     strength: ["Push-ups", "Squats", "Lunges", "Burpees", "Tricep Dips"],
     cardio: ["Jumping Jacks", "High Knees", "Mountain Climbers"],
     core: ["Plank", "Crunches", "Leg Raises"]
 };
 
-function getRepsFor(ex, diff, type) {
+function getRepsFor(ex, diff) {
     if (ex === "Plank") {
         let sec = 30 + (diff === "medium" ? 30 : diff === "hard" ? 60 : 0);
         return `${sec} seconds`;
@@ -150,10 +142,11 @@ function generateSuggestions() {
     const diff = document.getElementById("difficulty").value;
     const type = document.getElementById("workoutType").value;
     const box = document.getElementById("suggestedListContainer");
+
     box.innerHTML = "";
 
     WORKOUT_DB[type].forEach(ex => {
-        const reps = getRepsFor(ex, diff, type);
+        const reps = getRepsFor(ex, diff);
 
         const div = document.createElement("div");
         div.className = "suggested-item";
@@ -178,9 +171,11 @@ document.getElementById("workoutType").addEventListener("change", generateSugges
 generateSuggestions();
 renderWorkouts();
 
-
-document.getElementById("logoutBtn").addEventListener("click", () => {
-  localStorage.removeItem("token");
-  window.location.href = "login.html";
-});
-
+/* ---------- LOGOUT (FRONTEND SAFE) ---------- */
+const logoutBtn = document.getElementById("logoutBtn");
+if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+        localStorage.removeItem("token"); // harmless
+        alert("Logged out (frontend only)");
+    });
+}

@@ -3,6 +3,26 @@
     width: 100%;
     min-height: 100vh;
     padding: 80px 40px;
+
+    /* BACKGROUND IMAGE */
+    background: url("../Images/progress-bg.jpg") center / cover no-repeat;
+    position: relative;
+}
+
+/* Overlay for readability */
+.progress-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(6px);
+    z-index: 0;
+}
+
+/* Bring content above overlay */
+.progress-section > * {
+    position: relative;
+    z-index: 1;
 }
 
 .progress-section h1 {
@@ -135,4 +155,35 @@
     font-size: 1.4rem;
     cursor: pointer;
     margin-left: 15px;
+}
+
+/* ===== FORCE DARK MODE – PROGRESS PAGE ===== */
+
+body.dark {
+  background-color: #020617 !important;
+}
+
+body.dark .progress-section {
+  background: none !important;
+  color: #e5e7eb !important;
+}
+
+body.dark .progress-section::before {
+  background: rgba(2, 6, 23, 0.85) !important;
+}
+
+body.dark .stat-card,
+body.dark .motivation-box,
+body.dark .streak-box {
+  background: #020617 !important;
+  color: #e5e7eb !important;
+}
+
+body.dark .inner-circle {
+  background: #020617 !important;
+  color: #e5e7eb !important;
+}
+
+body.dark .recent-activity li {
+  border-bottom: 1px solid #1e293b !important;
 }

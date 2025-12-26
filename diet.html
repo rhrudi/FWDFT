@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>FiTrack – Diet</title>
   <link rel="stylesheet" href="css/style.css">
@@ -18,36 +18,56 @@
 </nav>
 
 <section class="diet-section">
+
   <h1>Diet Tracker</h1>
 
-  <!-- Daily Summary -->
-  <div class="diet-summary card">
-    <h3>Today's Intake</h3>
-    <p>Calories: <span id="totalCalories">0</span> kcal</p>
-    <p>Protein: <span id="totalProtein">0</span> g</p>
-    <p>Carbs: <span id="totalCarbs">0</span> g</p>
-    <p>Fats: <span id="totalFats">0</span> g</p>
+  <!-- Summary (TEXT ONLY, NO BOXES) -->
+  <div class="diet-summary">
+    <div>
+      <h3>Calories</h3>
+      <p><span id="totalCalories">0</span> kcal</p>
+      <div class="progress-bar">
+        <div id="calorieProgress"></div>
+      </div>
+    </div>
 
-    <div class="progress-bar">
-      <div id="calorieProgress"></div>
+    <div>
+      <h3>Protein</h3>
+      <p><span id="totalProtein">0</span> g</p>
+    </div>
+
+    <div>
+      <h3>Carbs</h3>
+      <p><span id="totalCarbs">0</span> g</p>
+    </div>
+
+    <div>
+      <h3>Fats</h3>
+      <p><span id="totalFats">0</span> g</p>
     </div>
   </div>
 
-  <!-- Add Meal -->
-  <div class="card">
+  <!-- Add Meal (GLASS STYLE, NO CARD) -->
+  <div class="add-meal">
     <h3>Add Meal</h3>
-    <input id="mealName" placeholder="Meal name">
-    <input id="calories" type="number" placeholder="Calories">
-    <input id="protein" type="number" placeholder="Protein (g)">
-    <input id="carbs" type="number" placeholder="Carbs (g)">
-    <input id="fats" type="number" placeholder="Fats (g)">
-    <button onclick="addMeal()">Add Meal</button>
+    <div class="meal-form">
+      <input id="mealName" placeholder="Meal name">
+      <input id="calories" type="number" placeholder="Calories">
+      <input id="protein" type="number" placeholder="Protein (g)">
+      <input id="carbs" type="number" placeholder="Carbs (g)">
+      <input id="fats" type="number" placeholder="Fats (g)">
+      <button onclick="addMeal()">Add Meal</button>
+    </div>
   </div>
 
-  <!-- Meal List -->
-  <div id="mealList"></div>
+  <!-- Meals -->
+  <h2 class="meal-title">Today's Meals</h2>
+  <div id="mealList" class="meal-grid"></div>
+
 </section>
 
 <script src="js/diet.js"></script>
+<script src="js/theme.js"></script>
+
 </body>
 </html>

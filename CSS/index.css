@@ -1,39 +1,74 @@
 /* HERO SECTION */
 .hero-section {
-    width: 100%;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #6a85ff, #b06aff);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 20px;
+  width: 100%;
+  min-height: 100vh;
+  background-image: url("../Images/Index-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
 }
 
+/* overlay */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(8px);
+}
+
+/* content above overlay */
+.hero-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* HERO BOX */
 .hero-box {
-    background: white;
-    padding: 50px 40px;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    text-align: center;
-    max-width: 700px;
-    width: 100%;
-    margin: 0 auto;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 55px 45px;
+  border-radius: 22px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  text-align: center;
+  max-width: 720px;
+  width: 100%;
 }
 
 .hero-box h1 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
+  font-size: 2.8rem;
+  margin-bottom: 18px;
 }
 
 .highlight {
-    color: #6a5acd;
-    font-weight: bold;
+  color: #6a5acd;
+  font-weight: 700;
 }
 
 .hero-box p {
-    font-size: 1.1rem;
-    margin-bottom: 25px;
-    color: #555;
+  font-size: 1.15rem;
+  margin-bottom: 30px;
+  color: #444;
+}
+
+.get-started-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #6a85ff, #b06aff);
+  color: white;
+  padding: 14px 34px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.get-started-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
 

@@ -133,3 +133,63 @@ body.dark ::placeholder {
 .active-section {
     display: block;
 }
+
+/* =======================
+   DARK MODE (GLOBAL)
+======================= */
+
+body.dark {
+  background-color: #0f172a;
+  color: #e5e7eb;
+}
+
+/* Navbar */
+body.dark .navbar {
+  background-color: #020617;
+  box-shadow: none;
+}
+
+body.dark .nav-links a {
+  color: #e5e7eb;
+}
+
+/* Cards / boxes */
+body.dark .hero-box,
+body.dark .login-box,
+body.dark .workout-card,
+body.dark .meal-card,
+body.dark .stat-card {
+  background: #020617;
+  color: #e5e7eb;
+  box-shadow: none;
+}
+
+/* Inputs */
+body.dark input,
+body.dark select,
+body.dark textarea {
+  background: #020617;
+  color: #e5e7eb;
+  border: 1px solid #334155;
+}
+
+body.dark input::placeholder {
+  color: #94a3b8;
+}
+
+/* Buttons */
+body.dark button {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+}
+
+/* Progress / highlights */
+body.dark .progress-bar,
+body.dark .goal-bar {
+  background: #1e293b;
+}
+
+/* Links */
+body.dark a {
+  color: #a5b4fc;
+}

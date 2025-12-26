@@ -1,22 +1,24 @@
-const toggleBtn = document.getElementById("themeToggle");
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleBtn = document.getElementById("themeToggle");
+  const body = document.body;
 
-// Apply saved theme on load
-const savedTheme = localStorage.getItem("theme");
+  if (!toggleBtn) return; // prevents crash on any page
 
-if (savedTheme === "dark") {
-  document.body.classList.add("dark");
-}
+  // Load saved theme
+  if (localStorage.getItem("theme") === "dark") {
+    body.classList.add("dark");
+    toggleBtn.textContent = "☀️";
+  }
 
-// Toggle theme
-if (toggleBtn) {
   toggleBtn.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
+    body.classList.toggle("dark");
 
-    // Save current theme
-    if (document.body.classList.contains("dark")) {
+    if (body.classList.contains("dark")) {
       localStorage.setItem("theme", "dark");
+      toggleBtn.textContent = "☀️";
     } else {
       localStorage.setItem("theme", "light");
+      toggleBtn.textContent = "🌙";
     }
   });
-}
+});
