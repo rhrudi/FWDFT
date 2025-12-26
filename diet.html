@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FiTrack – Diet</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/diet.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">FiTrack</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="workouts.html">Workouts</a></li>
+    <li><a href="progress.html">Progress</a></li>
+    <li><a href="diet.html" class="active">Diet</a></li>
+  </ul>
+</nav>
+
+<section class="diet-section">
+  <h1>Diet Tracker</h1>
+
+  <!-- Daily Summary -->
+  <div class="diet-summary card">
+    <h3>Today's Intake</h3>
+    <p>Calories: <span id="totalCalories">0</span> kcal</p>
+    <p>Protein: <span id="totalProtein">0</span> g</p>
+    <p>Carbs: <span id="totalCarbs">0</span> g</p>
+    <p>Fats: <span id="totalFats">0</span> g</p>
+
+    <div class="progress-bar">
+      <div id="calorieProgress"></div>
+    </div>
+  </div>
+
+  <!-- Add Meal -->
+  <div class="card">
+    <h3>Add Meal</h3>
+    <input id="mealName" placeholder="Meal name">
+    <input id="calories" type="number" placeholder="Calories">
+    <input id="protein" type="number" placeholder="Protein (g)">
+    <input id="carbs" type="number" placeholder="Carbs (g)">
+    <input id="fats" type="number" placeholder="Fats (g)">
+    <button onclick="addMeal()">Add Meal</button>
+  </div>
+
+  <!-- Meal List -->
+  <div id="mealList"></div>
+</section>
+
+<script src="js/diet.js"></script>
+</body>
+</html>

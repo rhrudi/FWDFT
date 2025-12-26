@@ -1,26 +1,42 @@
 const express = require("express");
-const authMiddleware = require("../middleware/authMiddleware");
-
+const Workout = require('../models/Workout');
 const router = express.Router();
 
-// 🔐 Protected route
-router.get("/", authMiddleware, async (req, res) => {
-  const workouts = await Workout.find({ userId: req.userId });
-  res.json(workouts);
+const authMiddleware = require("../middleware/authMiddleware");
+
+/**
+ * CREATE workout (protected)
+ */
+router.post("/", authMiddleware, async (req, res) => {
+  try {
+    const { type, reps } = req.body;
+
+    const workout = new Workout({
+      user: req.userId,
+      type,
+      reps
+    });
+
+    await workout.save();
+    res.json(workout);
+
+  } catch (err) {
+  console.error("Workout error:", err);
+  res.status(500).json({ message: "Server error" });
+}
 });
 
-// 🔐 Add new workout
-router.post("/", authMiddleware, async (req, res) => {
-  const { type, reps } = req.body;
 
-  const workout = new Workout({
-    userId: req.userId,
-    type,
-    reps
-  });
-
-  await workout.save();
-  res.json({ message: "Workout saved" });
+/**
+ * GET workouts for logged-in user
+ */
+router.get("/", authMiddleware, async (req, res) => {
+  try {
+    const workouts = await Workout.find({ user: req.userId });
+    res.json(workouts);
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
 });
 
 module.exports = router;

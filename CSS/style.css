@@ -84,6 +84,51 @@ body {
     padding: 80px 40px;
     display: none;
 }
+/* ========== DARK MODE ========== */
+
+body.dark {
+  background-color: #121212;
+  color: #eaeaea;
+}
+
+/* Navbar */
+body.dark .navbar {
+  background-color: #1e1e1e;
+}
+
+/* Links */
+body.dark a {
+  color: #eaeaea;
+}
+
+/* Cards / Boxes */
+body.dark .login-box,
+body.dark .workout-card,
+body.dark .progress-card {
+  background-color: #1f1f1f;
+  color: #eaeaea;
+}
+
+/* Inputs */
+body.dark input,
+body.dark textarea,
+body.dark select {
+  background-color: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid #444;
+}
+
+/* Buttons */
+body.dark button {
+  background-color: #333;
+  color: #ffffff;
+}
+
+/* Fix placeholders */
+body.dark ::placeholder {
+  color: #bbbbbb;
+}
+
 
 .active-section {
     display: block;
