@@ -1,7 +1,8 @@
 const logoutBtn = document.getElementById("logoutBtn");
 
 if (logoutBtn) {
-  logoutBtn.addEventListener("click", () => {
+  logoutBtn.addEventListener("click", (e) => {
+    e.preventDefault();
     localStorage.removeItem("token");
     window.location.href = "login.html";
   });

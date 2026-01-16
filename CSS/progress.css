@@ -7,6 +7,7 @@
     /* BACKGROUND IMAGE */
     background: url("../Images/progress-bg.jpg") center / cover no-repeat;
     position: relative;
+    /* transition: background 0.3s; Removed to avoid flash */
 }
 
 /* Overlay for readability */
@@ -17,10 +18,11 @@
     background: rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(6px);
     z-index: 0;
+    transition: background 0.3s;
 }
 
 /* Bring content above overlay */
-.progress-section > * {
+.progress-section>* {
     position: relative;
     z-index: 1;
 }
@@ -93,7 +95,7 @@
     padding: 15px;
     border-radius: 12px;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .stat-card h3 {
@@ -157,33 +159,41 @@
     margin-left: 15px;
 }
 
-/* ===== FORCE DARK MODE – PROGRESS PAGE ===== */
+/* ===== FORCE DARK MODE – PROGRESS PAGE (FIXED) ===== */
 
-body.dark {
-  background-color: #020617 !important;
-}
-
-body.dark .progress-section {
-  background: none !important;
-  color: #e5e7eb !important;
-}
-
+/* 1. Darken the overlay, KEEP the image */
 body.dark .progress-section::before {
-  background: rgba(2, 6, 23, 0.85) !important;
+    background: rgba(0, 0, 0, 0.85);
 }
 
+/* 2. Update text colors */
+body.dark .progress-section {
+    color: #e5e7eb;
+}
+
+/* 3. Darken cards */
 body.dark .stat-card,
 body.dark .motivation-box,
 body.dark .streak-box {
-  background: #020617 !important;
-  color: #e5e7eb !important;
+    background: #1e1e1e !important;
+    color: #e5e7eb !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark .streak-box {
+    color: #ffb74d !important;
+    /* Make streak text readable */
 }
 
 body.dark .inner-circle {
-  background: #020617 !important;
-  color: #e5e7eb !important;
+    background: #1e1e1e !important;
+    color: #e5e7eb !important;
 }
 
 body.dark .recent-activity li {
-  border-bottom: 1px solid #1e293b !important;
+    border-bottom: 1px solid #333;
+}
+
+body.dark .stat-card h3 {
+    color: #aaa;
 }

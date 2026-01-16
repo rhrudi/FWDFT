@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,89 +9,89 @@
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/progress.css">
 </head>
+
 <body>
 
-<nav class="navbar">
-    <div class="logo">FiTrack</div>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="workouts.html">Workouts</a></li>
-    <li><a href="progress.html">Progress</a></li>
-    <li><a href="diet.html">Diet</a></li>
-    <li><a href="login.html">Login</a></li>
-        <li><a href="#" id="logoutBtn">Logout</a></li>
-    </ul>
+    <nav class="navbar">
+        <div class="logo">FiTrack</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="workouts.html">Workouts</a></li>
+            <li><a href="progress.html">Progress</a></li>
+            <li><a href="diet.html">Diet</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+        </ul>
 
-    <button id="themeToggle" class="theme-toggle">🌙</button>
+        <button id="themeToggle" class="theme-toggle">🌙</button>
 
-</nav>
+    </nav>
 
-<section class="progress-section">
-    <h1>Progress</h1>
+    <section class="progress-section">
+        <h1>Progress</h1>
 
-    <div class="circle-wrapper">
-        <div class="circle">
-            <div class="inner-circle">
-                <span id="percentage">0%</span>
+        <div class="circle-wrapper">
+            <div class="circle">
+                <div class="inner-circle">
+                    <span id="percentage">0%</span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <p>Total Workouts: <span id="totalWorkouts">0</span></p>
-    <p>Completed Workouts: <span id="completedWorkouts">0</span></p>
+        <p>Total Workouts: <span id="totalWorkouts">0</span></p>
+        <p>Completed Workouts: <span id="completedWorkouts">0</span></p>
 
-    <div class="streak-box">
-        🔥 Streak: <span id="streakCount">0</span> days
-    </div>
-    <!-- QUICK STATS -->
-<div class="stats-grid">
-    <div class="stat-card">
-        <h3>Avg / Day</h3>
-        <p id="avgPerDay">0</p>
-    </div>
+        <div class="streak-box">
+            🔥 Streak: <span id="streakCount">0</span> days
+        </div>
+        <!-- QUICK STATS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Avg / Day</h3>
+                <p id="avgPerDay">0</p>
+            </div>
 
-    <div class="stat-card">
-        <h3>Last Workout</h3>
-        <p id="lastWorkout">—</p>
-    </div>
+            <div class="stat-card">
+                <h3>Last Workout</h3>
+                <p id="lastWorkout">—</p>
+            </div>
 
-    <div class="stat-card">
-        <h3>Consistency</h3>
-        <p id="consistency">0%</p>
-    </div>
-</div>
+            <div class="stat-card">
+                <h3>Consistency</h3>
+                <p id="consistency">0%</p>
+            </div>
+        </div>
 
-<!-- WEEKLY GOAL -->
-<div class="weekly-goal">
-    <h3>Weekly Goal (5 workouts)</h3>
-    <div class="goal-bar">
-        <div class="goal-fill" id="goalFill"></div>
-    </div>
-</div>
+        <!-- WEEKLY GOAL -->
+        <div class="weekly-goal">
+            <h3>Weekly Goal (<input type="number" id="weeklyGoalInput" value="5"
+                    style="width: 40px; background: transparent; border: none; font-weight: bold; font-size: inherit; color: inherit; text-align: center; border-bottom: 1px solid #ccc;">
+                workouts)</h3>
+            <div class="goal-bar">
+                <div class="goal-fill" id="goalFill"></div>
+            </div>
+        </div>
 
-<!-- RECENT ACTIVITY -->
-<div class="recent-activity">
-    <h3>Recent Activity</h3>
-    <ul id="recentList"></ul>
-</div>
+        <!-- RECENT ACTIVITY -->
+        <div class="recent-activity">
+            <h3>Recent Activity</h3>
+            <ul id="recentList"></ul>
+        </div>
 
-<!-- MOTIVATION -->
-<div class="motivation-box">
-    💡 <span id="motivationText"></span>
-</div>
-
-
-</section>
+        <!-- MOTIVATION -->
+        <div class="motivation-box">
+            💡 <span id="motivationText"></span>
+        </div>
 
 
-<script src="js/theme.js"></script>
+    </section>
 
 
-<script src="js/progress.js"></script>
-<script src="js/logout.js"></script>
+    <script src="js/theme.js"></script>
+
+
+    <script src="js/progress.js"></script>
+    <script src="js/logout.js"></script>
 </body>
+
 </html>
-
-
-
-

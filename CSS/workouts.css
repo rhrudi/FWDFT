@@ -190,3 +190,42 @@ body::before {
 #regenBtn:hover {
     background: #5835d6;
 }
+
+/* ==============================
+   DARK MODE OVERRIDES
+============================== */
+
+body.dark::before {
+    background: rgba(0, 0, 0, 0.85);
+}
+
+body.dark .workout-card,
+body.dark .suggested-item {
+    background: #1e1e1e;
+    color: #e5e7eb;
+    border: 1px solid #333;
+}
+
+body.dark .workout-card .timestamp {
+    color: #a3a3a3;
+}
+
+body.dark .suggested-item span {
+    color: #e5e7eb;
+}
+
+body.dark #difficulty,
+body.dark #workoutType,
+body.dark #exerciseType,
+body.dark #workoutReps {
+    background: #2a2a2a;
+    color: #fff;
+    border: 1px solid #444;
+}
+
+body.dark #difficulty option,
+body.dark #workoutType option,
+body.dark #exerciseType option {
+    background: #2a2a2a;
+    color: white;
+}

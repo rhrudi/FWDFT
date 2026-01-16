@@ -3,21 +3,31 @@ console.log("WORKOUTS.JS LOADED");
 const container = document.querySelector(".workout-cards");
 const addBtn = document.getElementById("addWorkoutBtn");
 
-const STORAGE_KEY = "workouts";
+const API_URL = "http://localhost:5000/api/workouts";
 
-/* ---------- UTILITIES ---------- */
-function loadWorkouts() {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+// Check for token in URL (from Google Auth redirect)
+const urlParams = new URLSearchParams(window.location.search);
+const urlToken = urlParams.get("token");
+
+if (urlToken) {
+    localStorage.setItem("token", urlToken);
+    // Clean URL
+    window.history.replaceState({}, document.title, window.location.pathname);
 }
 
-function saveWorkouts(list) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+const token = localStorage.getItem("token");
+
+if (!token) {
+    window.location.href = "login.html";
 }
 
 /* ---------- RANDOMIZE DEFAULT SUGGESTIONS ---------- */
 function randomizeSuggested() {
     document.querySelectorAll(".suggested-item").forEach(item => {
         const type = item.dataset.type;
+        // Skip if already populated (e.g. by generator) or if type is missing
+        if (!type || item.querySelector("span").textContent) return;
+
         let value = "";
 
         if (type === "Plank") {
@@ -32,12 +42,26 @@ function randomizeSuggested() {
 }
 randomizeSuggested();
 
+/* ---------- UTILITIES ---------- */
+async function loadWorkouts() {
+    try {
+        const res = await fetch(API_URL, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+        const data = await res.json();
+        renderWorkouts(data);
+        return data;
+    } catch (err) {
+        console.error("Error loading workouts:", err);
+        return [];
+    }
+}
+
 /* ---------- RENDER WORKOUT CARDS ---------- */
-function renderWorkouts() {
-    const workouts = loadWorkouts();
+function renderWorkouts(workouts) {
     container.innerHTML = "";
 
-    workouts.forEach((w, index) => {
+    workouts.forEach((w) => {
         const card = document.createElement("div");
         card.className = "workout-card";
 
@@ -53,18 +77,30 @@ function renderWorkouts() {
         `;
 
         // COMPLETE BUTTON
-        card.querySelector(".done-btn").addEventListener("click", () => {
-            w.completed = !w.completed;
-            w.completedOn = w.completed ? new Date().toISOString() : null;
-            saveWorkouts(workouts);
-            renderWorkouts();
+        card.querySelector(".done-btn").addEventListener("click", async () => {
+            try {
+                await fetch(`${API_URL}/${w._id}`, {
+                    method: "PUT",
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                loadWorkouts();
+            } catch (err) {
+                console.error("Error updating workout", err);
+            }
         });
 
         // DELETE BUTTON
-        card.querySelector(".delete-btn").addEventListener("click", () => {
-            workouts.splice(index, 1);
-            saveWorkouts(workouts);
-            renderWorkouts();
+        card.querySelector(".delete-btn").addEventListener("click", async () => {
+            if (!confirm("Are you sure?")) return;
+            try {
+                await fetch(`${API_URL}/${w._id}`, {
+                    method: "DELETE",
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                loadWorkouts();
+            } catch (err) {
+                console.error("Error deleting workout", err);
+            }
         });
 
         container.appendChild(card);
@@ -72,7 +108,7 @@ function renderWorkouts() {
 }
 
 /* ---------- ADD WORKOUT MANUALLY ---------- */
-addBtn.addEventListener("click", e => {
+addBtn.addEventListener("click", async (e) => {
     e.preventDefault();
 
     const type = document.getElementById("exerciseType").value;
@@ -83,53 +119,82 @@ addBtn.addEventListener("click", e => {
         return;
     }
 
-    const workouts = loadWorkouts();
-    workouts.push({
-        type,
-        reps,
-        completed: false,
-        completedOn: null,
-        createdAt: new Date().toISOString()
-    });
+    try {
+        const res = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({ type, reps })
+        });
 
-    saveWorkouts(workouts);
-    renderWorkouts();
-
-    document.getElementById("exerciseType").selectedIndex = 0;
-    document.getElementById("workoutReps").value = "";
+        if (res.ok) {
+            loadWorkouts();
+            document.getElementById("exerciseType").selectedIndex = 0;
+            document.getElementById("workoutReps").value = "";
+        } else {
+            alert("Failed to add workout");
+        }
+    } catch (err) {
+        console.error("Error adding workout:", err);
+    }
 });
 
 /* ---------- SUGGESTED WORKOUT ADD ---------- */
 function attachSuggestedButtons() {
     document.querySelectorAll(".suggested-item .suggest-btn").forEach(btn => {
-        btn.addEventListener("click", e => {
+        // remove old listeners
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+
+        newBtn.addEventListener("click", async (e) => {
             const item = e.target.closest(".suggested-item");
 
-            const workouts = loadWorkouts();
-            workouts.push({
-                type: item.dataset.type,
-                reps: item.dataset.reps,
-                completed: false,
-                completedOn: null,
-                createdAt: new Date().toISOString()
-            });
-
-            saveWorkouts(workouts);
-            renderWorkouts();
+            try {
+                await fetch(API_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        type: item.dataset.type,
+                        reps: item.dataset.reps
+                    })
+                });
+                loadWorkouts();
+            } catch (err) {
+                console.error("Error adding suggested workout:", err);
+            }
         });
     });
 }
 attachSuggestedButtons();
 
+// Load initially
+loadWorkouts();
+
 /* ---------- AI-LIKE GENERATOR ---------- */
+/* ---------- AI-LIKE GENERATOR ---------- */
+// Expanded Database
 const WORKOUT_DB = {
-    strength: ["Push-ups", "Squats", "Lunges", "Burpees", "Tricep Dips"],
-    cardio: ["Jumping Jacks", "High Knees", "Mountain Climbers"],
-    core: ["Plank", "Crunches", "Leg Raises"]
+    strength: [
+        "Push-ups", "Squats", "Lunges", "Burpees", "Tricep Dips",
+        "Pull-ups", "Deadlifts", "Bench Press", "Shoulder Press", "Bicep Curls"
+    ],
+    cardio: [
+        "Jumping Jacks", "High Knees", "Mountain Climbers", "Running", "Cycling",
+        "Jump Rope", "Box Jumps", "Burpees", "Rowing", "Stair Climbing"
+    ],
+    core: [
+        "Plank", "Crunches", "Leg Raises", "Russian Twists", "Bicycle Crunches",
+        "Sit-ups", "Side Plank", "Flutter Kicks", "Mountain Climbers"
+    ]
 };
 
 function getRepsFor(ex, diff) {
-    if (ex === "Plank") {
+    if (ex.includes("Plank") || ex.includes("Running") || ex.includes("Cycling")) {
         let sec = 30 + (diff === "medium" ? 30 : diff === "hard" ? 60 : 0);
         return `${sec} seconds`;
     }
@@ -145,7 +210,16 @@ function generateSuggestions() {
 
     box.innerHTML = "";
 
-    WORKOUT_DB[type].forEach(ex => {
+    // 1. Get all exercises for this type
+    const allExercises = WORKOUT_DB[type];
+
+    // 2. Shuffle array (Fisher-Yates)
+    const shuffled = [...allExercises].sort(() => 0.5 - Math.random());
+
+    // 3. Pick top 4
+    const selected = shuffled.slice(0, 4);
+
+    selected.forEach(ex => {
         const reps = getRepsFor(ex, diff);
 
         const div = document.createElement("div");
@@ -171,11 +245,4 @@ document.getElementById("workoutType").addEventListener("change", generateSugges
 generateSuggestions();
 renderWorkouts();
 
-/* ---------- LOGOUT (FRONTEND SAFE) ---------- */
-const logoutBtn = document.getElementById("logoutBtn");
-if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-        localStorage.removeItem("token"); // harmless
-        alert("Logged out (frontend only)");
-    });
-}
+

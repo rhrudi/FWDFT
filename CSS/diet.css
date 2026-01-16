@@ -23,7 +23,7 @@
   z-index: 0;
 }
 
-.diet-section > * {
+.diet-section>* {
   position: relative;
   z-index: 1;
 }
@@ -36,15 +36,19 @@
   font-size: 42px;
   font-weight: 700;
   margin-bottom: 25px;
+  text-align: center;
+  /* Centered */
 }
 
 .diet-section h2 {
   font-size: 28px;
   margin: 35px 0 15px;
+  text-align: center;
+  /* Centered */
 }
 
 /* =========================
-   SUMMARY TEXT (NO BOXES)
+   SUMMARY TEXT
 ========================= */
 
 .diet-summary {
@@ -53,10 +57,14 @@
   flex-wrap: wrap;
   font-size: 18px;
   font-weight: 500;
+  justify-content: center;
+  /* Centered */
 }
 
 .diet-summary div {
   min-width: 160px;
+  text-align: center;
+  /* Centered content */
 }
 
 .diet-summary span {
@@ -75,6 +83,9 @@
   border-radius: 10px;
   overflow: hidden;
   margin-top: 8px;
+  margin-left: auto;
+  /* Center in parent */
+  margin-right: auto;
 }
 
 #calorieProgress {
@@ -89,12 +100,21 @@
 
 .add-meal {
   margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-meal h3 {
+  margin-bottom: 15px;
 }
 
 .meal-form {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+  justify-content: center;
+  /* Centered */
 }
 
 .meal-form input {
@@ -131,12 +151,15 @@
 
 .meal-grid {
   margin-top: 15px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .meal-card {
   margin-bottom: 18px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .meal-card h4 {
@@ -163,23 +186,28 @@
 }
 
 /* =====================================================
-   ADDED: PREMIUM DIET RECOMMENDATION (NO EXISTING CHANGES)
+   PREMIUM DIET RECOMMENDATION
 ===================================================== */
 
 .diet-recommendation {
   margin-top: 45px;
   padding: 28px 30px;
   border-radius: 22px;
+  max-width: 800px;
+  /* Constrain width */
+  margin-left: auto;
+  /* Center block */
+  margin-right: auto;
 
   /* Glassmorphism */
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 
-  border: 1px solid rgba(255,255,255,0.35);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow:
-    0 12px 35px rgba(0,0,0,0.22),
-    inset 0 1px 0 rgba(255,255,255,0.45);
+    0 12px 35px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
 
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -187,14 +215,15 @@
 .diet-recommendation:hover {
   transform: translateY(-2px);
   box-shadow:
-    0 18px 45px rgba(0,0,0,0.28),
-    inset 0 1px 0 rgba(255,255,255,0.45);
+    0 18px 45px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
 .diet-recommendation h3 {
   font-size: 22px;
   font-weight: 600;
   margin-bottom: 18px;
+  text-align: center;
 }
 
 /* Controls */
@@ -202,6 +231,8 @@
   display: flex;
   gap: 14px;
   align-items: center;
+  justify-content: center;
+  /* Center controls */
   margin-bottom: 20px;
 }
 
@@ -209,8 +240,8 @@
   padding: 10px 14px;
   border-radius: 12px;
   border: none;
-  background: rgba(255,255,255,0.85);
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.12);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
   font-size: 14px;
 }
 
@@ -235,10 +266,13 @@
   margin-bottom: 10px;
   font-size: 18px;
   color: #4f46e5;
+  text-align: center;
 }
 
 #dietSuggestionBox ul {
   padding-left: 18px;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 #dietSuggestionBox li {
@@ -246,15 +280,50 @@
 }
 
 /* =========================
-   DARK MODE SUPPORT (SAFE)
+   DARK MODE SUPPORT (FIXED)
 ========================= */
 
+body.dark .diet-section::before {
+  background: rgba(2, 6, 23, 0.85);
+  /* Dark overlay */
+}
+
 body.dark .diet-recommendation {
-  background: rgba(2, 6, 23, 0.6);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(30, 41, 59, 0.7);
+  /* Dark card */
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: #e5e7eb;
 }
 
+body.dark .diet-section {
+  color: #e5e7eb;
+}
+
+body.dark .diet-section h1,
+body.dark .diet-section h2,
+body.dark .diet-section h3,
+body.dark .diet-section p,
+body.dark .diet-section span {
+  color: #e5e7eb;
+}
+
+body.dark .diet-recommendation h3,
 body.dark #dietSuggestionBox h4 {
   color: #a5b4fc;
+}
+
+body.dark .meal-card {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body.dark .meal-form input {
+  background: #1e293b;
+  color: #fff;
+}
+
+body.dark .diet-controls select {
+  background: #1e293b;
+  color: #fff;
+  box-shadow: none;
+  border: 1px solid #334155;
 }

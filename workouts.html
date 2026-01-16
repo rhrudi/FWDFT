@@ -1,118 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FiTrack – Workouts</title>
 
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/workouts.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FiTrack – Workouts</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/workouts.css">
 </head>
+
 <body>
 
-<nav class="navbar">
-    <div class="logo">FiTrack</div>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="workouts.html">Workouts</a></li>
-    <li><a href="progress.html">Progress</a></li>
-    <li><a href="diet.html">Diet</a></li>
-    <li><a href="login.html">Login</a></li>
+    <nav class="navbar">
+        <div class="logo">FiTrack</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="workouts.html">Workouts</a></li>
+            <li><a href="progress.html">Progress</a></li>
+            <li><a href="diet.html">Diet</a></li>
+            <li><a href="login.html">Login</a></li>
 
-        <li><a href="#" id="logoutBtn">Logout</a></li>
-    </ul>
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+        </ul>
 
-    <button id="themeToggle" class="theme-toggle">🌙</button>
+        <button id="themeToggle" class="theme-toggle">🌙</button>
 
-</nav>
+    </nav>
 
-<section class="workouts-section">
-    <h1>Workouts</h1>
-    <p>Track your daily workouts and stay consistent.</p>
+    <section class="workouts-section">
+        <h1>Workouts</h1>
+        <p>Track your daily workouts and stay consistent.</p>
 
-    <div class="suggested-workouts">
-        <h2>Suggested Workouts</h2>
+        <div class="suggested-workouts">
+            <h2>Suggested Workouts</h2>
 
-        <div class="suggested-header">
-    
-            <div class="suggested-controls">
-                <select id="difficulty">
-                    <option value="easy">Easy</option>
-                    <option value="medium" selected>Medium</option>
-                    <option value="hard">Hard</option>
-                </select>
-    
-                <select id="workoutType">
-                    <option value="strength" selected>Strength</option>
-                    <option value="cardio">Cardio</option>
-                    <option value="core">Core</option>
-                </select>
-    
-                <button id="regenBtn" class="suggest-btn">Generate</button>
+            <div class="suggested-header">
+
+                <div class="suggested-controls">
+                    <select id="difficulty">
+                        <option value="easy">Easy</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+
+                    <select id="workoutType">
+                        <option value="strength" selected>Strength</option>
+                        <option value="cardio">Cardio</option>
+                        <option value="core">Core</option>
+                    </select>
+
+                    <button id="regenBtn" class="suggest-btn">Generate</button>
+                </div>
             </div>
+
+            <div class="suggested-list" id="suggestedListContainer">
+                <!-- JS will generate items here -->
+            </div>
+
+            <!-- Static list removed to rely on dynamic generation -->
+
         </div>
-    
-        <div class="suggested-list" id="suggestedListContainer">
-            <!-- JS will generate items here -->
+
+        <!-- Add Workout Form -->
+        <div class="add-workout-form">
+            <select id="exerciseType" required>
+                <option value="" disabled selected>Select Exercise</option>
+
+                <optgroup label="Strength">
+                    <option value="Push-ups">Push-ups</option>
+                    <option value="Squats">Squats</option>
+                    <option value="Lunges">Lunges</option>
+                    <option value="Burpees">Burpees</option>
+                    <option value="Tricep Dips">Tricep Dips</option>
+                    <option value="Pull-ups">Pull-ups</option>
+                    <option value="Deadlifts">Deadlifts</option>
+                    <option value="Bench Press">Bench Press</option>
+                    <option value="Shoulder Press">Shoulder Press</option>
+                    <option value="Bicep Curls">Bicep Curls</option>
+                </optgroup>
+
+                <optgroup label="Cardio">
+                    <option value="Jumping Jacks">Jumping Jacks</option>
+                    <option value="High Knees">High Knees</option>
+                    <option value="Mountain Climbers">Mountain Climbers</option>
+                    <option value="Running">Running</option>
+                    <option value="Cycling">Cycling</option>
+                    <option value="Jump Rope">Jump Rope</option>
+                    <option value="Box Jumps">Box Jumps</option>
+                    <option value="Rowing">Rowing</option>
+                    <option value="Stair Climbing">Stair Climbing</option>
+                </optgroup>
+
+                <optgroup label="Core">
+                    <option value="Plank">Plank</option>
+                    <option value="Crunches">Crunches</option>
+                    <option value="Leg Raises">Leg Raises</option>
+                    <option value="Russian Twists">Russian Twists</option>
+                    <option value="Bicycle Crunches">Bicycle Crunches</option>
+                    <option value="Sit-ups">Sit-ups</option>
+                    <option value="Side Plank">Side Plank</option>
+                    <option value="Flutter Kicks">Flutter Kicks</option>
+                </optgroup>
+            </select>
+
+            <input type="text" id="workoutReps" placeholder="Sets × Reps or Duration" required>
+            <button id="addWorkoutBtn">Add Workout</button>
         </div>
-        
-        <div class="suggested-list">
 
-            <div class="suggested-item" data-type="Push-ups">
-                <span></span>
-                <button class="suggest-btn">Add</button>
-            </div>
-        
-            <div class="suggested-item" data-type="Squats">
-                <span></span>
-                <button class="suggest-btn">Add</button>
-            </div>
-        
-            <div class="suggested-item" data-type="Plank">
-                <span></span>
-                <button class="suggest-btn">Add</button>
-            </div>
-        
-            <div class="suggested-item" data-type="Lunges">
-                <span></span>
-                <button class="suggest-btn">Add</button>
-            </div>
-        
-            <div class="suggested-item" data-type="Burpees">
-                <span></span>
-                <button class="suggest-btn">Add</button>
-            </div>
-        
-        </div>
-                
-    </div>                   
+        <!-- Container for workout cards -->
+        <div class="workout-cards"></div>
+    </section>
 
-    <!-- Add Workout Form -->
-    <div class="add-workout-form">
-        <select id="exerciseType" required>
-            <option value="" disabled selected>Select Exercise</option>
-            <option value="Push-ups">Push-ups</option>
-            <option value="Squats">Squats</option>
-            <option value="Plank">Plank</option>
-            <option value="Lunges">Lunges</option>
-            <option value="Burpees">Burpees</option>
-        </select>
-
-        <input type="text" id="workoutReps" placeholder="Sets × Reps or Duration" required>
-        <button id="addWorkoutBtn">Add Workout</button>
-    </div>
-
-    <!-- Container for workout cards -->
-    <div class="workout-cards"></div>
-</section>
-<script src="js/index.js"></script>
-<script src="js/workouts.js"></script>
-<script src="js/logout.js"></script>
-<script src="js/theme.js"></script>
+    <script src="js/workouts.js"></script>
+    <script src="js/logout.js"></script>
+    <script src="js/theme.js"></script>
 
 </body>
+
 </html>
-
-
-
-

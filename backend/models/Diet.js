@@ -6,7 +6,7 @@ const dietSchema = new mongoose.Schema({
     ref: "User",
     required: true
   },
-  mealName: String,
+  name: String,
   calories: Number,
   protein: Number,
   carbs: Number,

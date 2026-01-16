@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,33 +8,40 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/google-btn.css">
 </head>
+
 <body>
 
     <nav class="navbar">
         <div class="logo">FiTrack</div>
         <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="workouts.html">Workouts</a></li>
-    <li><a href="progress.html">Progress</a></li>
-    <li><a href="diet.html">Diet</a></li>
-    <li><a href="login.html">Login</a></li>
-</ul>
-<button id="themeToggle" class="theme-toggle">🌙</button>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="workouts.html">Workouts</a></li>
+            <li><a href="progress.html">Progress</a></li>
+            <li><a href="diet.html">Diet</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+        <button id="themeToggle" class="theme-toggle">🌙</button>
 
     </nav>
 
     <section class="hero-section">
         <div class="hero-box">
             <h1>Welcome to <span class="highlight">FiTrack</span></h1>
-            <p>Your all-in-one fitness tracking companion.</p>
-            <a href="login.html" class="get-started-btn">Get Started</a>
+            <p>Your ultimate fitness companion. Track workouts, monitor diet, and visualize progress.</p>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                <a href="register.html" class="cta-button">Get Started</a>
+                <a href="http://localhost:5000/api/auth/google" class="btn-google">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="G">
+                    Continue with Google
+                </a>
+            </div>
         </div>
     </section>
     <script src="js/theme.js"></script>
 
 
 </body>
+
 </html>
-
-

@@ -1,18 +1,38 @@
-const DAILY_GOAL = 2000;
+// DAILY_GOAL is now dynamic
 
-// Load meals from localStorage
-function loadMeals() {
-  const meals = JSON.parse(localStorage.getItem("meals")) || [];
+const API_URL = "http://localhost:5000/api/diet";
+const token = localStorage.getItem("token");
 
+if (!token) {
+  window.location.href = "login.html";
+}
+
+// Load meals from Backend
+async function loadMeals() {
+  try {
+    const res = await fetch(API_URL, {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+    const meals = await res.json();
+    renderMeals(meals);
+  } catch (err) {
+    console.error("Error loading meals:", err);
+  }
+}
+
+function renderMeals(meals) {
   let totals = { calories: 0, protein: 0, carbs: 0, fats: 0 };
   const list = document.getElementById("mealList");
   list.innerHTML = "";
 
-  meals.forEach((meal, index) => {
-    totals.calories += meal.calories;
-    totals.protein += meal.protein;
-    totals.carbs += meal.carbs;
-    totals.fats += meal.fats;
+  // Reset to 0 first
+  document.getElementById("calorieProgress").style.width = "0%";
+
+  meals.forEach((meal) => {
+    totals.calories += Number(meal.calories || 0);
+    totals.protein += Number(meal.protein || 0);
+    totals.carbs += Number(meal.carbs || 0);
+    totals.fats += Number(meal.fats || 0);
 
     list.innerHTML += `
       <div class="meal-card">
@@ -21,7 +41,7 @@ function loadMeals() {
         <p>Protein: ${meal.protein} g</p>
         <p>Carbs: ${meal.carbs} g</p>
         <p>Fats: ${meal.fats} g</p>
-        <button onclick="deleteMeal(${index})">Delete</button>
+        <button onclick="deleteMeal('${meal._id}')">Delete</button>
       </div>
     `;
   });
@@ -31,12 +51,21 @@ function loadMeals() {
   document.getElementById("totalCarbs").textContent = totals.carbs;
   document.getElementById("totalFats").textContent = totals.fats;
 
-  document.getElementById("calorieProgress").style.width =
-    Math.min((totals.calories / DAILY_GOAL) * 100, 100) + "%";
+  const dailyGoal = getDailyGoal();
+  const widthPct = Math.min((totals.calories / dailyGoal) * 100, 100);
+
+  const bar = document.getElementById("calorieProgress");
+  if (widthPct <= 0 || isNaN(widthPct)) {
+    bar.style.width = "0%";
+    bar.style.display = "none";
+  } else {
+    bar.style.display = "block";
+    bar.style.width = widthPct + "%";
+  }
 }
 
-// Add meal (frontend only)
-function addMeal() {
+// Add meal
+async function addMeal() {
   const name = document.getElementById("mealName").value;
   const calories = Number(document.getElementById("calories").value);
   const protein = Number(document.getElementById("protein").value);
@@ -48,35 +77,75 @@ function addMeal() {
     return;
   }
 
-  const meals = JSON.parse(localStorage.getItem("meals")) || [];
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ name, calories, protein, carbs, fats })
+    });
 
-  meals.push({ name, calories, protein, carbs, fats });
-
-  localStorage.setItem("meals", JSON.stringify(meals));
-
-  clearInputs();
-  loadMeals();
+    if (res.ok) {
+      clearInputs();
+      loadMeals();
+    } else {
+      alert("Failed to add meal");
+    }
+  } catch (err) {
+    console.error("Error adding meal:", err);
+  }
 }
 
 // Delete meal
-function deleteMeal(index) {
-  const meals = JSON.parse(localStorage.getItem("meals")) || [];
-  meals.splice(index, 1);
-  localStorage.setItem("meals", JSON.stringify(meals));
-  loadMeals();
+async function deleteMeal(id) {
+  if (!confirm("Delete this meal?")) return;
+
+  try {
+    await fetch(`${API_URL}/${id}`, {
+      method: "DELETE",
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+    loadMeals();
+  } catch (err) {
+    console.error("Error deleting meal:", err);
+  }
 }
 
 // Clear input fields
 function clearInputs() {
-  mealName.value = "";
-  calories.value = "";
-  protein.value = "";
-  carbs.value = "";
-  fats.value = "";
+  document.getElementById("mealName").value = "";
+  document.getElementById("calories").value = "";
+  document.getElementById("protein").value = "";
+  document.getElementById("carbs").value = "";
+  document.getElementById("fats").value = "";
 }
 
 // Initial load
 loadMeals();
+
+/* ---------- GOAL MANAGEMENT ---------- */
+function getDailyGoal() {
+  return Number(localStorage.getItem("dailyGoal")) || 2000;
+}
+
+function setDailyGoal(val) {
+  localStorage.setItem("dailyGoal", val);
+  document.getElementById("dailyGoalDisplay").value = val;
+  loadMeals(); // Re-render to update bar
+}
+
+// Bind input to functionality
+document.getElementById("dailyGoalDisplay").addEventListener("change", (e) => {
+  let val = Number(e.target.value);
+  if (val < 1000) val = 1000; // Minimum safety
+  setDailyGoal(val);
+});
+
+// Initialize input on load
+document.getElementById("dailyGoalDisplay").value = getDailyGoal();
+
 
 function suggestDiet() {
   const goal = document.getElementById("dietGoal").value;
@@ -88,10 +157,11 @@ function suggestDiet() {
   }
 
   if (goal === "loss") {
+    setDailyGoal(1800); // Auto-update goal
     box.innerHTML = `
-      <h4>Weight Loss Plan</h4>
+      <h4>Weight Loss Plan (1800 kcal)</h4>
       <ul>
-        <li>Calories: 1500–1800 kcal/day</li>
+        <li>Goal set to 1800 kcal/day</li>
         <li>Protein: High (lean chicken, eggs, tofu)</li>
         <li>Carbs: Low (oats, brown rice)</li>
         <li>Fats: Healthy (nuts, olive oil)</li>
@@ -99,10 +169,11 @@ function suggestDiet() {
       </ul>
     `;
   } else if (goal === "gain") {
+    setDailyGoal(2800); // Auto-update goal
     box.innerHTML = `
-      <h4>Weight Gain Plan</h4>
+      <h4>Weight Gain Plan (2800 kcal)</h4>
       <ul>
-        <li>Calories: 2500–3000 kcal/day</li>
+         <li>Goal set to 2800 kcal/day</li>
         <li>Protein: Very High (chicken, fish, paneer)</li>
         <li>Carbs: High (rice, potatoes, pasta)</li>
         <li>Fats: Healthy (peanut butter, nuts)</li>

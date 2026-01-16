@@ -23,7 +23,7 @@
 }
 
 /* content above overlay */
-.hero-section > * {
+.hero-section>* {
   position: relative;
   z-index: 1;
 }
@@ -33,7 +33,7 @@
   background: rgba(255, 255, 255, 0.92);
   padding: 55px 45px;
   border-radius: 22px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
   text-align: center;
   max-width: 720px;
   width: 100%;
@@ -68,11 +68,21 @@
 
 .get-started-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
+/* ===============================
+   DARK MODE OVERRIDES
+=============================== */
+body.dark .hero-section::before {
+  background: rgba(0, 0, 0, 0.85);
+}
 
+body.dark .hero-box {
+  background: #1e1e1e;
+  color: #e5e7eb;
+}
 
-
-
-
+body.dark .hero-box p {
+  color: #ccc;
+}
